@@ -9,8 +9,8 @@ import {TICK} from '../actions/tick'
 const types = ['T', 'O', 'I', 'S', 'Z', 'J', 'L']
 
 function Piece() {
-  const type = types[Math.floor(Math.random() * types.length)]
-  // const type = 'Z'
+  // const type = types[Math.floor(Math.random() * types.length)]
+  const type = 'I'
   switch(type) {
     case 'T': return {
       row: 0, 
@@ -104,7 +104,7 @@ const getLeftBound = piece => { // TODO: Fix BUGGED for S and Z pieces
 }
 
 const getRightBound = piece => {  // TODO: Fix BUGGED for S and Z pieces
-  for(let col = piece.shape[0].length - 1; col > 0 ; col--)
+  for(let col = piece.shape[0].length - 1; col > -1 ; col--)
     for(let row = 0; row < piece.shape.length; row++)
       if(piece.shape[row][col]) return col + piece.column
 }
@@ -183,6 +183,7 @@ export default (state = resetState(), action) => {
     state = {...state, activePiece: rotate(activePiece)}
   }
   if(action.type === TICK) {
+    console.log('right', getRightBound(activePiece))
     if(getTopBound(activePiece) == 0 && collision(occupied, {...activePiece, row: activePiece.row + 1})) {
       alert('Game Over')
       return resetState()
@@ -192,7 +193,7 @@ export default (state = resetState(), action) => {
         ...state, 
         pieces: [...pieces, activePiece], 
         activePiece: new Piece(),
-        occupied: occupy(occupied, activePiece)
+        occupied: occupy(occupied, activePiece) 
       }
     }
   }
