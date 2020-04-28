@@ -9,8 +9,8 @@ import {TICK} from '../actions/tick'
 const types = ['T', 'O', 'I', 'S', 'Z', 'J', 'L']
 
 function Piece() {
-  // const type = types[Math.floor(Math.random() * types.length)]
-  const type = 'I'
+  const type = types[Math.floor(Math.random() * types.length)]
+  // const type = 'I'
   switch(type) {
     case 'T': return {
       row: 0, 
