@@ -137,17 +137,22 @@ const occupy = (occupied, piece) => {
   return occupied
 }
 
-const occupied = []
-for(let i = 0; i < 20; i++)
-  occupied.push(new Array(9).fill(0))
-
-const defaultState = {
-  occupied,
-  activePiece: new Piece(),
-  pieces: []
+const resetOccuppied = () => {
+  const occupied = []
+  for(let i = 0; i < 20; i++)
+    occupied.push(new Array(9).fill(0))
+  return [...occupied]
 }
 
-export default (state = defaultState, action) => {
+const resetState = () => {
+  return {
+    occupied: resetOccuppied(),
+    activePiece: new Piece(),
+    pieces: []
+  }
+}
+
+export default (state = resetState(), action) => {
   const {activePiece, pieces, occupied} = state
   if(
     action.type === PIECE_MOVE_LEFT && 
@@ -178,11 +183,11 @@ export default (state = defaultState, action) => {
     state = {...state, activePiece: rotate(activePiece)}
   }
   if(action.type === TICK) {
-    const bottomCollision = collision(occupied, {...activePiece, row: activePiece.row + 1})
     if(getTopBound(activePiece) == 0 && collision(occupied, {...activePiece, row: activePiece.row + 1})) {
-      alert('Game')
+      alert('Game Over')
+      return resetState()
     }
-    if(getBottomBound(activePiece) == 19 || bottomCollision) {
+    else if(getBottomBound(activePiece) == 19 || collision(occupied, {...activePiece, row: activePiece.row + 1})) {
       state = {
         ...state, 
         pieces: [...pieces, activePiece], 
