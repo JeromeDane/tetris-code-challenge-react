@@ -15,6 +15,8 @@ const Piece = ({scale, row, column, shape, color}) => {
                 background: color, 
                 top: (rowI * scale) + 'px', 
                 left: (colI * scale) + 'px',
+                border: '2px outset #333',
+                boxSizing: 'border-box'                
               }} key={rowI + '' + colI} />
             )
           }

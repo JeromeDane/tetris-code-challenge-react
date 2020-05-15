@@ -19,6 +19,12 @@ function App({handleKeyPress, tick, speed}) {
   return (
     <div className="App">
       <Board />
+      <div style={{textAlign: 'center'}}>
+        <div>Controls:</div>
+        <div>← →	Move </div>
+        <div>↑ Rotate</div>
+        <div style={{paddingLeft: '1.5em'}}> ↓	Soft drop</div>
+      </div>
       <KeyboardEventHandler
         handleKeys={['left', 'right', 'up', 'down']} // TODO: implement WASD
         onKeyEvent={handleKeyPress} />
